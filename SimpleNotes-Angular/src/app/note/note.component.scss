@@ -1,0 +1,28 @@
+$note-bg-color: #fccd4c;
+$note-color: #7c2801;
+.note {
+    background-color: $note-bg-color;
+    color: $note-color;
+    height: 200px;
+    padding: 0px;
+}
+input, textarea {
+    background-color: $note-bg-color;
+    color: $note-color;
+    border: none;
+    width: stretch; 
+    margin-bottom: 6px;
+}
+input:focus, textarea:focus{
+    border: none;
+    background-color: #e6bb46;
+    outline: none;
+}
+textarea {
+    height: 65px;
+}
+button {
+    background: none;
+    padding: 0;
+    margin: 0;
+}

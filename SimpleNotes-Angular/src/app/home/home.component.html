@@ -1,0 +1,18 @@
+<div>
+    <div class="h3 m-3">{{ 'LOC_NOTES' | translate }}</div>
+    <div class="row m-2 justify-content-center">
+        <app-note *ngFor="let note of notes" [note]="note" class="col-12 col-md-5 col-lg-2 mx-1 mt-2"
+        (onDeleted)="onDeleted($event)"
+        (onChanged)="onChanged($event)"></app-note>
+        <div class="col-12 col-md-5 col-lg-2 mx-2 mt-2">
+            <form (ngSubmit)="addNote()" #form="ngForm" class="note">
+                <div class="card-body">                    
+                    <input type="text" placeholder="{{'LOC_PLACEHOLDER_TITLE' | translate}}" name="inputTitle" [(ngModel)]="newNote.title">
+                    <input type="text" placeholder="{{'LOC_PLACEHOLDER_TEXT' | translate}}" name="inputText" [(ngModel)]="newNote.text" required>
+                    <input type="text" placeholder="{{'LOC_PLACEHOLDER_USERNAME' | translate}}" name="inputUserName" [(ngModel)]="newNote.userName">
+                    <input type="submit" value="{{'LOC_SUBMIT' | translate}}" id="newNotebutton">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
