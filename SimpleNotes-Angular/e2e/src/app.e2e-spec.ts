@@ -10,7 +10,13 @@ describe('workspace-project App', () => {
 
   it('should add one note', () => {
     page.navigateTo();
-    expect(page.AddOneNote()).toBe(true);
+    expect(page.addOneNote()).toBe(true);
+    //expect(page.deleteOneNote()).toBe(true);
+  });
+
+  it('should delete one note', () => {
+    page.navigateTo();
+    expect(page.deleteOneNote()).toBe(true);
   });
 
   afterEach(async () => {

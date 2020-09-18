@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SimpleNotes.API.Data;
+using SimpleNotes.BLL.Helpers;
+using AutoMapper;
+using SimpleNotes.BLL.Services;
 
 namespace SimpleNotes.API
 {
@@ -19,16 +20,16 @@ namespace SimpleNotes.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();           
+            services.AddControllers();
 
-            var connectingString = _configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(connectingString));
+            services.DataInit(_configuration);
+            services.AddTransient<INotesService, NotesService>();
 
             services.AddCors(
                 opt =>
                 {
-                    opt.AddPolicy("CorsPolicy", policy => {
+                    opt.AddPolicy("CorsPolicy", policy =>
+                    {
                         policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
@@ -41,7 +42,13 @@ namespace SimpleNotes.API
                 }
             );
 
-            services.AddTransient<INotesRepository, NotesRepository>();
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

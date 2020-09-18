@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleNotes.API.Data;
-using SimpleNotes.API.Models;
-
+using SimpleNotes.BLL.Dtos;
+using SimpleNotes.BLL.Services;
 
 namespace SimpleNotes.API.Controllers
 {
@@ -11,16 +10,25 @@ namespace SimpleNotes.API.Controllers
     [ApiController]
     public class NotesController : ControllerBase
     {
-        private readonly INotesRepository _repo;
-        public NotesController(INotesRepository repo)
+        private readonly INotesService _notes;
+        public NotesController(INotesService notes)
         {
-            _repo = repo;
+            _notes = notes;
         }
+
         // GET: api/notes
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_repo.GetNotes());
+            try
+            {
+                var notes = await _notes.GetNotes();
+                return Ok(notes);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // GET api/notes/1
@@ -29,31 +37,23 @@ namespace SimpleNotes.API.Controllers
         {
             try
             {
-                var note = await _repo.GetNote(id);
+                var note = await _notes.GetNote(id);
                 return Ok(note);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return NotFound(ex.Message);
             }
         }
 
         // POST api/notes
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Note newNote)
+        public async Task<IActionResult> Post([FromBody] NoteDto newNote)
         {
             try
             {
-                newNote.Date = DateTime.Now;
-                await _repo.AddNote(newNote);
-                if (await _repo.SaveAll())
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return BadRequest("Saving error");
-                }
+                await _notes.AddNote(newNote);
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -63,19 +63,12 @@ namespace SimpleNotes.API.Controllers
 
         // PUT api/notes/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Note newNote)
+        public async Task<IActionResult> Put(int id, [FromBody] NoteDto newNote)
         {
             try
             {
-                await _repo.UpdateNote(id, newNote);
-                if (await _repo.SaveAll())
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return BadRequest("Saving error");
-                }
+                await _notes.UpdateNote(id, newNote);
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -89,15 +82,8 @@ namespace SimpleNotes.API.Controllers
         {
             try
             {
-                await _repo.DeleteNote(id);
-                if (await _repo.SaveAll())
-                {
-                    return NoContent();
-                }
-                else
-                {
-                    return BadRequest("Saving error");
-                }
+                await _notes.DeleteNote(id);
+                return NoContent();
             }
             catch (Exception ex)
             {

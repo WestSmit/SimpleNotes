@@ -1,10 +1,9 @@
 {
     "LOC_TAGLINE": "Your memory is not infinity! Make a note for important info",
-    "LOC_NOTES": "Notes",    
+    "LOC_NOTES": "Notes",
     "LOC_SUBMIT": "Add",
     "LOC_PLACEHOLDER_TITLE": "Title",
     "LOC_PLACEHOLDER_TEXT": "Text*",
     "LOC_PLACEHOLDER_USERNAME": "Username",
     "LOC_BUTTON_EDIT": "Save"
-
 }

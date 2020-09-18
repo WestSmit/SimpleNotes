@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleNotes.API.Models
+namespace SimpleNotes.DAL.Models
 {
     public class Note
     {

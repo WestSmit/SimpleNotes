@@ -1,24 +1,34 @@
 $note-bg-color: #fccd4c;
 $note-color: #7c2801;
+$light-color: #fcd66f;
+
 .note {
     background-color: $note-bg-color;
     color: $note-color;
     height: 200px;
     padding: 0px;
 }
-input {
-    background-color: $note-bg-color;
+.note:hover,.note:focus-within {
+    box-shadow: 10px 10px 1px $note-color;
+}
+input,textarea {
+    background-color: $light-color;
     color: $note-color;
     padding: 6px;
     border: none;
-    border-bottom: 1px solid $note-color;
     margin-bottom: 8px;
-    width: stretch;    
+    width: stretch;
+    outline: none;
+    resize: none;
 }
 input[type="submit"] {
     border: 1px solid $note-color;
-}
-input:focus{
-    border-bottom: 1px solid $note-color;
-    outline: none;
+    &:hover {
+        background-color: $note-color;
+        color: $note-bg-color;
+    }
+    &:disabled {
+        background-color: lightyellow;
+        color: gray;
+    }
 }

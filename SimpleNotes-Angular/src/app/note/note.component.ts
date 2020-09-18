@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Note } from '../models/note';
-import { NotesService } from '../services/notes.service';
 
 @Component({
   selector: 'app-note',
@@ -15,7 +14,7 @@ export class NoteComponent{
   delete() {
     this.onDeleted.emit(this.note.id);
   }
-  save(){
+  save() {
     this.onChanged.emit(this.note);
   }
 }

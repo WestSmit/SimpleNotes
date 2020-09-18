@@ -5,13 +5,12 @@
         (onDeleted)="onDeleted($event)"
         (onChanged)="onChanged($event)"></app-note>
         <div class="col-12 col-md-5 col-lg-2 mx-2 mt-2">
-            <form (ngSubmit)="addNote()" #form="ngForm" class="note">
-                <div class="card-body">                    
-                    <input type="text" placeholder="{{'LOC_PLACEHOLDER_TITLE' | translate}}" name="inputTitle" [(ngModel)]="newNote.title">
-                    <input type="text" placeholder="{{'LOC_PLACEHOLDER_TEXT' | translate}}" name="inputText" [(ngModel)]="newNote.text" required>
+            <form (ngSubmit)="addNote()" #form="ngForm" class="note p-2" id="form">
+                <small class="text-muted ml-2">M.d.yy hh:mm</small>
+                    <input type="text" class="h5" placeholder="{{'LOC_PLACEHOLDER_TITLE' | translate}}" name="inputTitle" [(ngModel)]="newNote.title" autofocus>
+                    <textarea class="card-text" name="inputText" [(ngModel)]="newNote.text" placeholder="{{'LOC_PLACEHOLDER_TEXT' | translate}}" form="form" required></textarea>
                     <input type="text" placeholder="{{'LOC_PLACEHOLDER_USERNAME' | translate}}" name="inputUserName" [(ngModel)]="newNote.userName">
-                    <input type="submit" value="{{'LOC_SUBMIT' | translate}}" id="newNotebutton">
-                </div>
+                    <input type="submit" class="rounded mt-4" value="{{'LOC_SUBMIT' | translate}}" id="newNotebutton" [disabled]="!newNote.text || newNote.text == ''">
             </form>
         </div>
     </div>

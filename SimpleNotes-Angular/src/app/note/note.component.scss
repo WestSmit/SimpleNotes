@@ -1,28 +1,21 @@
-$note-bg-color: #fccd4c;
-$note-color: #7c2801;
-.note {
-    background-color: $note-bg-color;
-    color: $note-color;
-    height: 200px;
-    padding: 0px;
-}
+@import "../home/home.component.scss";
+
 input, textarea {
     background-color: $note-bg-color;
     color: $note-color;
     border: none;
-    width: stretch; 
-    margin-bottom: 6px;
 }
-input:focus, textarea:focus{
+input:hover, textarea:hover,:focus{
     border: none;
-    background-color: #e6bb46;
+    background-color: #fcd66f;
     outline: none;
-}
-textarea {
-    height: 65px;
 }
 button {
     background: none;
-    padding: 0;
-    margin: 0;
+    padding: 2px;
+    margin: 0 auto;
+    color: gray;
+    &:hover {
+        border-bottom: 1px solid $note-color;
+    }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Note } from '../models/note';
 import { NotesService } from '../services/notes.service';
 
@@ -9,6 +10,8 @@ import { NotesService } from '../services/notes.service';
 })
 export class HomeComponent implements OnInit {
 
+  private subscriptions: Subscription[] = [];
+
   notes: Note[];
   newNote = new Note();
 
@@ -17,20 +20,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getNotes();
   }
+  
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
   getNotes() {
-    this.data.getNotes().subscribe(
+    var s = this.data.getNotes().subscribe(
       (next) => {
-        this.notes = next
+        this.notes = next;
         console.log(next);
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       });
+    this.subscriptions.push(s);
   }
 
-  addNote() {    
-    if(this.newNote.text == null) {
+  addNote() {
+    if (this.newNote.text == null) {
       return;
     }
 
@@ -54,7 +62,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onChanged(note:Note) {
+  onChanged(note: Note) {
     this.data.editNote(note).subscribe(
       (next) => {
         this.getNotes();
@@ -63,5 +71,4 @@ export class HomeComponent implements OnInit {
         console.log(error);
       });
   }
-
 }

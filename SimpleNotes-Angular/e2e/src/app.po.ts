@@ -6,7 +6,7 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  async AddOneNote() {
+  async addOneNote() {
     
     let a = -1;
     let b = -1;
@@ -18,6 +18,24 @@ export class AppPage {
 
     b = await element.all(by.css('.note')).count();
 
+    console.log(b)
+
     return b == (a + 1);
+  }
+
+  async deleteOneNote() {
+    
+    let a = -1;
+    let b = -1;
+
+    a = await element.all(by.css('.note')).count();
+
+    await element(by.xpath('//app-note/div[1]/button')).click()
+
+    b = await element.all(by.css('.note')).count();
+
+    console.log(b)
+    
+    return b == (a - 1);
   }
 }

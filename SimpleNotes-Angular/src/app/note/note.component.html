@@ -1,22 +1,16 @@
-<div class="note p-0 pr-1">
+<div class="note p-2">
     <small class="text-muted ml-2">{{note.date | date:'M.d.yy hh:mm'}}</small>
     <button type="button mt-0 mr-0" class="close" aria-label="Close" (click)="delete()">
         <span aria-hidden="true">&times;</span>
     </button>
-    <form (ngSubmit)="save()" #form="ngForm" class="p-2" id="{{note.id}}">
+    <form (ngSubmit)="save()" #form="ngForm" class="" id="{{note.id}}">
         <input type="text" class="h5" name="title" [(ngModel)]="note.title">
-        <textarea class="card-text"  name="text" [(ngModel)]="note.text" required></textarea>
-        <input type="text" class="text-muted" name="username" [(ngModel)]="note.userName">  
-        <button type="submit" class="btn text-muted">
-            <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" />
-                <path fill-rule="evenodd"
-                    d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z" />
-            </svg>
+        <textarea class="card-text" name="text" [(ngModel)]="note.text" required></textarea>
+        <input type="text" class="text-muted float-left w-50" name="username" [(ngModel)]="note.userName">
+        <button type="submit" class="btn float-right mt-2">
+            <img src="../../assets/icons/edit.svg" alt="Save changes">
             {{'LOC_BUTTON_EDIT' | translate}}
         </button>
     </form>
-    
+
 </div>

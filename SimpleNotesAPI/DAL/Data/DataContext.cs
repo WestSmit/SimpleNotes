@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SimpleNotes.API.Models;
+using SimpleNotes.DAL.Models;
 using System;
 
-namespace SimpleNotes.API.Data
+namespace SimpleNotes.DAL.Data
 {
     public class DataContext : DbContext
     {
